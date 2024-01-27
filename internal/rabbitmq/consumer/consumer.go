@@ -38,13 +38,13 @@ func ConsumeDetailListCount(svcCtx *svc.ServiceContext, wg *sync.WaitGroup) {
 			return true
 		},
 		EventFail: func(code int, err error, bytes []byte) {
-
+			logx.Errorf("rabbitmq receive code: %d, err: %s, body: %s", code, err, bytes)
 		},
 	}
 
 	config.ConsumerPool.RegisterConsumeReceive(receive)
 	if err := config.ConsumerPool.RunConsume(); err != nil {
-
+		logx.Errorf("error:%s", err)
 	}
 
 	return
