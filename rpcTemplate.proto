@@ -1,0 +1,49 @@
+syntax = "proto3";
+
+package rpcTemplate;
+option go_package="./rpcTemplate";
+
+message UserDetailListRequest{
+  int64 page = 1;
+  int64 pageSize = 2;
+}
+message UserDetailListResponse{
+  repeated UserDetailItem items = 1;
+}
+message UserDetailItem{
+  int64 id = 1;
+  string name = 2;
+  int64 created_at = 3;
+  int64 updated_at = 4;
+}
+message UserDetailUpdateRequest{
+  UserDetailUpdateQuery query = 1;
+  UserDetailUpdateDoc doc = 2;
+}
+message UserDetailUpdateQuery{
+  int64 id = 1;
+}
+message UserDetailUpdateDoc{
+  string name = 1;
+}
+message UserDetailUpdateResponse{
+  int64 id = 1;
+}
+message UserDetailInsertReq{
+  string name = 1;
+}
+message UserDetailInsertResp{
+  int64 id = 1;
+}
+message UserDetailDeleteReq{
+  int64 id = 1;
+}
+message UserDetailDeleteResp{
+  int64 id = 1;
+}
+service UserDetailService {
+  rpc UserDetailList(UserDetailListRequest) returns(UserDetailListResponse);
+  rpc UserDetailUpdate(UserDetailUpdateRequest) returns(UserDetailUpdateResponse);
+  rpc UserDetailInsert(UserDetailInsertReq) returns(UserDetailInsertResp);
+  rpc UserDetailDelete(UserDetailDeleteReq) returns(UserDetailDeleteResp);
+}
