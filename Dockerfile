@@ -3,7 +3,7 @@ FROM registry.cn-chengdu.aliyuncs.com/yg-golang/base-auth-golang:1.21-apline AS 
 COPY . /code
 
 RUN cd /code \
-    && go mod download && go build -o bin/main gozerorpctemplate.go
+    && go mod download && go build -o bin/main rpcTemplate.go && go build -o bin/job job.go
 
 FROM alpine
 

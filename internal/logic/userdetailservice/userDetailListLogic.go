@@ -91,7 +91,7 @@ func (l *UserDetailListLogic) PushMQ(data interface{}) *rabbitmqx.RabbitMqError 
 	if err != nil {
 		return rabbitmqx.NewRabbitMqError(500, err.Error(), "")
 	}
-	dataFormat := rabbitmqx.GetDataFormat("testChange", rabbitmqx.EXCHANGE_TYPE_FANOUT, "testQueue", "", marshal)
+	dataFormat := rabbitmqx.GetDataFormat("testChange", rabbitmqx.EXCHANGE_TYPE_FANOUT, "testQueue", "", marshal, uint8(0))
 	if err_ := config.ProducerPool.Push(dataFormat); err_ != nil {
 		return err_
 	} else {

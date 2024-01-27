@@ -27,6 +27,11 @@ func (s *UserDetailServiceServer) UserDetailList(ctx context.Context, in *rpcTem
 	return l.UserDetailList(in)
 }
 
+func (s *UserDetailServiceServer) UserDetailCount(ctx context.Context, in *rpcTemplate.UserDetailCountReq) (*rpcTemplate.UserDetailCountResp, error) {
+	l := userdetailservicelogic.NewUserDetailCountLogic(ctx, s.svcCtx)
+	return l.UserDetailCount(in)
+}
+
 func (s *UserDetailServiceServer) UserDetailUpdate(ctx context.Context, in *rpcTemplate.UserDetailUpdateRequest) (*rpcTemplate.UserDetailUpdateResponse, error) {
 	l := userdetailservicelogic.NewUserDetailUpdateLogic(ctx, s.svcCtx)
 	return l.UserDetailUpdate(in)
