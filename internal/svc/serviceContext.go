@@ -21,6 +21,8 @@ type (
 
 func NewServiceContext(c config.Config) *ServiceContext {
 
+	config.WatchEtcd(c)
+
 	return &ServiceContext{
 		Config:       c,
 		DBCli:        config.RegisterDBCli(c),
