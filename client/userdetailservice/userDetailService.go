@@ -6,7 +6,7 @@ package userdetailservice
 import (
 	"context"
 
-	"rpc-template/pb/rpcTemplate"
+	"codeup.aliyun.com/64df1ec7dba61e96ebf612bf/jiandaoshou/rpc-template/pb/rpcTemplate"
 
 	"github.com/zeromicro/go-zero/zrpc"
 	"google.golang.org/grpc"
