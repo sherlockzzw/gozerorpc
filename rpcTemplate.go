@@ -28,7 +28,7 @@ func main() {
 			wg := new(sync.WaitGroup)
 			go func() {
 				wg.Add(1)
-				consumer.ConsumeDetailListCount(ctx, wg)
+				consumer.RegisterConsumer(ctx, wg)
 			}()
 
 			reflection.Register(grpcServer)
