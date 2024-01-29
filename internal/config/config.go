@@ -3,6 +3,7 @@ package config
 import (
 	"codeup.aliyun.com/64df1ec7dba61e96ebf612bf/jiandaoshou/mysqlx"
 	"codeup.aliyun.com/64df1ec7dba61e96ebf612bf/jiandaoshou/rabbitmqx"
+	"codeup.aliyun.com/64df1ec7dba61e96ebf612bf/jiandaoshou/rpc-template/internal/model/entity"
 	"context"
 	"encoding/json"
 	"github.com/go-redis/redis/v8"
@@ -18,7 +19,6 @@ import (
 	"gorm.io/gorm"
 	"os"
 	"path/filepath"
-	"rpc-template/internal/model/entity"
 	"sync"
 	"time"
 )

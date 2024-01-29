@@ -3,9 +3,9 @@ package dao
 import (
 	"codeup.aliyun.com/64df1ec7dba61e96ebf612bf/jiandaoshou/mongox"
 	"codeup.aliyun.com/64df1ec7dba61e96ebf612bf/jiandaoshou/mysqlx"
+	"codeup.aliyun.com/64df1ec7dba61e96ebf612bf/jiandaoshou/rpc-template/internal/config"
+	"codeup.aliyun.com/64df1ec7dba61e96ebf612bf/jiandaoshou/rpc-template/internal/model/entity"
 	"github.com/go-redis/redis/v8"
-	"rpc-template/internal/config"
-	"rpc-template/internal/model/entity"
 )
 
 type DetailDao struct {
