@@ -2,10 +2,10 @@ package consumer
 
 import (
 	"codeup.aliyun.com/64df1ec7dba61e96ebf612bf/jiandaoshou/rabbitmqx"
+	"codeup.aliyun.com/64df1ec7dba61e96ebf612bf/jiandaoshou/rpc-template/internal/config"
+	server "codeup.aliyun.com/64df1ec7dba61e96ebf612bf/jiandaoshou/rpc-template/internal/server/userdetailservice"
+	"codeup.aliyun.com/64df1ec7dba61e96ebf612bf/jiandaoshou/rpc-template/internal/svc"
 	"github.com/zeromicro/go-zero/core/logx"
-	"rpc-template/internal/config"
-	server "rpc-template/internal/server/userdetailservice"
-	"rpc-template/internal/svc"
 	"sync"
 )
 

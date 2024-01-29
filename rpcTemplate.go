@@ -1,14 +1,14 @@
 package main
 
 import (
+	"codeup.aliyun.com/64df1ec7dba61e96ebf612bf/jiandaoshou/rpc-template/internal/rabbitmq/consumer"
+	server "codeup.aliyun.com/64df1ec7dba61e96ebf612bf/jiandaoshou/rpc-template/internal/server/userdetailservice"
 	"fmt"
-	"rpc-template/internal/rabbitmq/consumer"
-	server "rpc-template/internal/server/userdetailservice"
 	"sync"
 
-	"rpc-template/internal/config"
-	"rpc-template/internal/svc"
-	"rpc-template/pb/rpcTemplate"
+	"codeup.aliyun.com/64df1ec7dba61e96ebf612bf/jiandaoshou/rpc-template/internal/config"
+	"codeup.aliyun.com/64df1ec7dba61e96ebf612bf/jiandaoshou/rpc-template/internal/svc"
+	"codeup.aliyun.com/64df1ec7dba61e96ebf612bf/jiandaoshou/rpc-template/pb/rpcTemplate"
 
 	"github.com/zeromicro/go-zero/core/service"
 	"github.com/zeromicro/go-zero/zrpc"

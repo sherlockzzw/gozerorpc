@@ -3,15 +3,15 @@ package userdetailservicelogic
 import (
 	"codeup.aliyun.com/64df1ec7dba61e96ebf612bf/jiandaoshou/mysqlx"
 	"codeup.aliyun.com/64df1ec7dba61e96ebf612bf/jiandaoshou/rabbitmqx"
+	"codeup.aliyun.com/64df1ec7dba61e96ebf612bf/jiandaoshou/rpc-template/internal/config"
+	"codeup.aliyun.com/64df1ec7dba61e96ebf612bf/jiandaoshou/rpc-template/internal/dao"
+	"codeup.aliyun.com/64df1ec7dba61e96ebf612bf/jiandaoshou/rpc-template/internal/model/entity"
 	"context"
 	"encoding/json"
 	"gorm.io/gorm/clause"
-	"rpc-template/internal/config"
-	"rpc-template/internal/dao"
-	"rpc-template/internal/model/entity"
 
-	"rpc-template/internal/svc"
-	"rpc-template/pb/rpcTemplate"
+	"codeup.aliyun.com/64df1ec7dba61e96ebf612bf/jiandaoshou/rpc-template/internal/svc"
+	"codeup.aliyun.com/64df1ec7dba61e96ebf612bf/jiandaoshou/rpc-template/pb/rpcTemplate"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )

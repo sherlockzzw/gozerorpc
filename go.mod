@@ -1,4 +1,4 @@
-module rpc-template
+module codeup.aliyun.com/64df1ec7dba61e96ebf612bf/jiandaoshou/rpc-template
 
 go 1.20
 
