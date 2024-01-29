@@ -1,11 +1,11 @@
 package job
 
 import (
+	server "codeup.aliyun.com/64df1ec7dba61e96ebf612bf/jiandaoshou/rpc-template/internal/server/userdetailservice"
+	"codeup.aliyun.com/64df1ec7dba61e96ebf612bf/jiandaoshou/rpc-template/internal/svc"
+	"codeup.aliyun.com/64df1ec7dba61e96ebf612bf/jiandaoshou/rpc-template/pb/rpcTemplate"
 	"context"
 	"github.com/zeromicro/go-zero/core/logx"
-	server "rpc-template/internal/server/userdetailservice"
-	"rpc-template/internal/svc"
-	"rpc-template/pb/rpcTemplate"
 )
 
 type DetailCount struct {

@@ -1,11 +1,11 @@
 package job
 
 import (
+	"codeup.aliyun.com/64df1ec7dba61e96ebf612bf/jiandaoshou/rpc-template/internal/config"
+	"codeup.aliyun.com/64df1ec7dba61e96ebf612bf/jiandaoshou/rpc-template/internal/svc"
 	"context"
 	"github.com/spf13/cobra"
 	"os"
-	"rpc-template/internal/config"
-	"rpc-template/internal/svc"
 )
 
 const (

@@ -6,9 +6,9 @@ package server
 import (
 	"context"
 
-	"rpc-template/internal/logic/userdetailservice"
-	"rpc-template/internal/svc"
-	"rpc-template/pb/rpcTemplate"
+	"codeup.aliyun.com/64df1ec7dba61e96ebf612bf/jiandaoshou/rpc-template/internal/logic/userdetailservice"
+	"codeup.aliyun.com/64df1ec7dba61e96ebf612bf/jiandaoshou/rpc-template/internal/svc"
+	"codeup.aliyun.com/64df1ec7dba61e96ebf612bf/jiandaoshou/rpc-template/pb/rpcTemplate"
 )
 
 type UserDetailServiceServer struct {
