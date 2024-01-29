@@ -3,7 +3,6 @@ package userdetailservicelogic
 import (
 	"codeup.aliyun.com/64df1ec7dba61e96ebf612bf/jiandaoshou/mysqlx"
 	"codeup.aliyun.com/64df1ec7dba61e96ebf612bf/jiandaoshou/rabbitmqx"
-	"codeup.aliyun.com/64df1ec7dba61e96ebf612bf/jiandaoshou/rpc-template/internal/config"
 	"codeup.aliyun.com/64df1ec7dba61e96ebf612bf/jiandaoshou/rpc-template/internal/dao"
 	"codeup.aliyun.com/64df1ec7dba61e96ebf612bf/jiandaoshou/rpc-template/internal/model/entity"
 	"context"
@@ -92,7 +91,7 @@ func (l *UserDetailListLogic) PushMQ(data interface{}) *rabbitmqx.RabbitMqError 
 		return rabbitmqx.NewRabbitMqError(500, err.Error(), "")
 	}
 	dataFormat := rabbitmqx.GetDataFormat("testChange", rabbitmqx.EXCHANGE_TYPE_FANOUT, "testQueue", "", marshal, uint8(0))
-	if err_ := config.ProducerPool.Push(dataFormat); err_ != nil {
+	if err_ := l.svcCtx.ProducerPool.Push(dataFormat); err_ != nil {
 		return err_
 	} else {
 		return nil
