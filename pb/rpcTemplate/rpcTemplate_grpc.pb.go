@@ -20,6 +20,7 @@ const _ = grpc.SupportPackageIsVersion7
 
 const (
 	UserDetailService_UserDetailList_FullMethodName   = "/rpcTemplate.UserDetailService/UserDetailList"
+	UserDetailService_UserDetailCount_FullMethodName  = "/rpcTemplate.UserDetailService/UserDetailCount"
 	UserDetailService_UserDetailUpdate_FullMethodName = "/rpcTemplate.UserDetailService/UserDetailUpdate"
 	UserDetailService_UserDetailInsert_FullMethodName = "/rpcTemplate.UserDetailService/UserDetailInsert"
 	UserDetailService_UserDetailDelete_FullMethodName = "/rpcTemplate.UserDetailService/UserDetailDelete"
@@ -30,6 +31,7 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type UserDetailServiceClient interface {
 	UserDetailList(ctx context.Context, in *UserDetailListRequest, opts ...grpc.CallOption) (*UserDetailListResponse, error)
+	UserDetailCount(ctx context.Context, in *UserDetailCountReq, opts ...grpc.CallOption) (*UserDetailCountResp, error)
 	UserDetailUpdate(ctx context.Context, in *UserDetailUpdateRequest, opts ...grpc.CallOption) (*UserDetailUpdateResponse, error)
 	UserDetailInsert(ctx context.Context, in *UserDetailInsertReq, opts ...grpc.CallOption) (*UserDetailInsertResp, error)
 	UserDetailDelete(ctx context.Context, in *UserDetailDeleteReq, opts ...grpc.CallOption) (*UserDetailDeleteResp, error)
@@ -46,6 +48,15 @@ func NewUserDetailServiceClient(cc grpc.ClientConnInterface) UserDetailServiceCl
 func (c *userDetailServiceClient) UserDetailList(ctx context.Context, in *UserDetailListRequest, opts ...grpc.CallOption) (*UserDetailListResponse, error) {
 	out := new(UserDetailListResponse)
 	err := c.cc.Invoke(ctx, UserDetailService_UserDetailList_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *userDetailServiceClient) UserDetailCount(ctx context.Context, in *UserDetailCountReq, opts ...grpc.CallOption) (*UserDetailCountResp, error) {
+	out := new(UserDetailCountResp)
+	err := c.cc.Invoke(ctx, UserDetailService_UserDetailCount_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -84,6 +95,7 @@ func (c *userDetailServiceClient) UserDetailDelete(ctx context.Context, in *User
 // for forward compatibility
 type UserDetailServiceServer interface {
 	UserDetailList(context.Context, *UserDetailListRequest) (*UserDetailListResponse, error)
+	UserDetailCount(context.Context, *UserDetailCountReq) (*UserDetailCountResp, error)
 	UserDetailUpdate(context.Context, *UserDetailUpdateRequest) (*UserDetailUpdateResponse, error)
 	UserDetailInsert(context.Context, *UserDetailInsertReq) (*UserDetailInsertResp, error)
 	UserDetailDelete(context.Context, *UserDetailDeleteReq) (*UserDetailDeleteResp, error)
@@ -96,6 +108,9 @@ type UnimplementedUserDetailServiceServer struct {
 
 func (UnimplementedUserDetailServiceServer) UserDetailList(context.Context, *UserDetailListRequest) (*UserDetailListResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UserDetailList not implemented")
+}
+func (UnimplementedUserDetailServiceServer) UserDetailCount(context.Context, *UserDetailCountReq) (*UserDetailCountResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UserDetailCount not implemented")
 }
 func (UnimplementedUserDetailServiceServer) UserDetailUpdate(context.Context, *UserDetailUpdateRequest) (*UserDetailUpdateResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UserDetailUpdate not implemented")
@@ -133,6 +148,24 @@ func _UserDetailService_UserDetailList_Handler(srv interface{}, ctx context.Cont
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(UserDetailServiceServer).UserDetailList(ctx, req.(*UserDetailListRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _UserDetailService_UserDetailCount_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UserDetailCountReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserDetailServiceServer).UserDetailCount(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserDetailService_UserDetailCount_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserDetailServiceServer).UserDetailCount(ctx, req.(*UserDetailCountReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -201,6 +234,10 @@ var UserDetailService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UserDetailList",
 			Handler:    _UserDetailService_UserDetailList_Handler,
+		},
+		{
+			MethodName: "UserDetailCount",
+			Handler:    _UserDetailService_UserDetailCount_Handler,
 		},
 		{
 			MethodName: "UserDetailUpdate",

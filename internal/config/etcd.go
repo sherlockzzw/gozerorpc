@@ -4,22 +4,26 @@ import (
 	"context"
 	"encoding/json"
 	"github.com/zeromicro/go-zero/core/logx"
+	"sync"
 )
 
 func WatchEtcd(config Config) {
-	watchDB(config)
-	watchRedis(config)
-	watchRabbitMq(config)
-	watchMongo(config)
+	wg := new(sync.WaitGroup)
+	watchDB(config, wg)
+	watchRedis(config, wg)
+	watchRabbitMq(config, wg)
+	watchMongo(config, wg)
 }
 
-func watchMongo(config Config) {
+func watchMongo(config Config, wg *sync.WaitGroup) {
+	defer wg.Done()
 	watchMongoChan := EtcdClient.Watch(context.Background(), config.MongoX)
 
+	wg.Add(1)
 	go func() {
 		defer func() {
 			if p := recover(); p != nil {
-				logx.Errorf("watch DB func panic: %s", p)
+				logx.Errorf("watch mongo func panic: %s", p)
 			}
 		}()
 
@@ -31,17 +35,20 @@ func watchMongo(config Config) {
 				panic(err)
 			}
 			initMongo(mongoX)
+			return
 		}
 	}()
 }
 
-func watchDB(config Config) {
+func watchDB(config Config, wg *sync.WaitGroup) {
+	defer wg.Done()
 	watchDBChan := EtcdClient.Watch(context.Background(), config.DBX)
 
+	wg.Add(1)
 	go func() {
 		defer func() {
 			if p := recover(); p != nil {
-				logx.Errorf("watch DB func panic: %s", p)
+				logx.Errorf("watch mysql func panic: %s", p)
 			}
 		}()
 
@@ -53,17 +60,20 @@ func watchDB(config Config) {
 				panic(err)
 			}
 			initDB(config.Mode, dbX)
+			return
 		}
 	}()
 }
 
-func watchRedis(config Config) {
+func watchRedis(config Config, wg *sync.WaitGroup) {
+	defer wg.Done()
 	watchDBChan := EtcdClient.Watch(context.Background(), config.RedisX)
 
+	wg.Add(1)
 	go func() {
 		defer func() {
 			if p := recover(); p != nil {
-				logx.Errorf("watch DB func panic: %s", p)
+				logx.Errorf("watch redis func panic: %s", p)
 			}
 		}()
 
@@ -75,17 +85,20 @@ func watchRedis(config Config) {
 				panic(err)
 			}
 			initRedis(redisX)
+			return
 		}
 	}()
 }
 
-func watchRabbitMq(config Config) {
-	watchRabbitMqChan := EtcdClient.Watch(context.Background(), config.RedisX)
+func watchRabbitMq(config Config, wg *sync.WaitGroup) {
+	defer wg.Done()
+	watchRabbitMqChan := EtcdClient.Watch(context.Background(), config.RabbitMqX)
 
+	wg.Add(1)
 	go func() {
 		defer func() {
 			if p := recover(); p != nil {
-				logx.Errorf("watch DB func panic: %s", p)
+				logx.Errorf("watch rabbitMQ func panic: %s", p)
 			}
 		}()
 
@@ -99,6 +112,7 @@ func watchRabbitMq(config Config) {
 
 			initProducer(rabbitMqX)
 			initConsumer(rabbitMqX)
+			return
 		}
 	}()
 }

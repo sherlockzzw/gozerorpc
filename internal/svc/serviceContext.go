@@ -21,6 +21,8 @@ type (
 
 func NewServiceContext(c config.Config) *ServiceContext {
 
+	config.WatchEtcd(c)
+
 	return &ServiceContext{
 		Config:       c,
 		DBCli:        config.RegisterDBCli(c),
@@ -28,5 +30,16 @@ func NewServiceContext(c config.Config) *ServiceContext {
 		MongoCli:     config.RegisterMongoCli(c),
 		ConsumerPool: config.RegisterRabbitMq(c, rabbitmqx.RABBITMQ_TYPE_CONSUME),
 		ProducerPool: config.RegisterRabbitMq(c, rabbitmqx.RABBITMQ_TYPE_PUBLISH),
+	}
+}
+
+func NewJobContext(c config.Config) *ServiceContext {
+	config.WatchEtcd(c)
+
+	return &ServiceContext{
+		Config:   c,
+		DBCli:    config.RegisterDBCli(c),
+		RedisCli: config.RegisterRedisCli(c),
+		MongoCli: config.RegisterMongoCli(c),
 	}
 }

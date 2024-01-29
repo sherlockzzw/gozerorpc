@@ -41,8 +41,15 @@ message UserDetailDeleteReq{
 message UserDetailDeleteResp{
   int64 id = 1;
 }
+message UserDetailCountReq{
+
+}
+message UserDetailCountResp{
+  int64 count = 1;
+}
 service UserDetailService {
   rpc UserDetailList(UserDetailListRequest) returns(UserDetailListResponse);
+  rpc UserDetailCount(UserDetailCountReq) returns(UserDetailCountResp);
   rpc UserDetailUpdate(UserDetailUpdateRequest) returns(UserDetailUpdateResponse);
   rpc UserDetailInsert(UserDetailInsertReq) returns(UserDetailInsertResp);
   rpc UserDetailDelete(UserDetailDeleteReq) returns(UserDetailDeleteResp);

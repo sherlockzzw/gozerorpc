@@ -4,8 +4,9 @@ go 1.20
 
 require (
 	codeup.aliyun.com/64df1ec7dba61e96ebf612bf/jiandaoshou/mysqlx v0.0.0-20240119023518-4f94d7f684ce
-	codeup.aliyun.com/64df1ec7dba61e96ebf612bf/jiandaoshou/rabbitmqx v0.0.0-20240124085305-9b08cc7e6c02
+	codeup.aliyun.com/64df1ec7dba61e96ebf612bf/jiandaoshou/rabbitmqx v0.0.0-20240127093514-1ba8317f8863
 	github.com/go-redis/redis/v8 v8.11.5
+	github.com/spf13/cobra v1.8.0
 	github.com/zeromicro/go-zero v1.6.1
 	go.etcd.io/etcd/client/v3 v3.5.11
 	go.mongodb.org/mongo-driver v1.13.1
@@ -41,6 +42,7 @@ require (
 	github.com/google/gofuzz v1.2.0 // indirect
 	github.com/google/uuid v1.4.0 // indirect
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.18.0 // indirect
+	github.com/inconshreveable/mousetrap v1.1.0 // indirect
 	github.com/jinzhu/inflection v1.0.0 // indirect
 	github.com/jinzhu/now v1.1.5 // indirect
 	github.com/josharian/intern v1.0.0 // indirect
@@ -61,6 +63,7 @@ require (
 	github.com/prometheus/common v0.44.0 // indirect
 	github.com/prometheus/procfs v0.11.1 // indirect
 	github.com/spaolacci/murmur3 v1.1.0 // indirect
+	github.com/spf13/pflag v1.0.5 // indirect
 	github.com/streadway/amqp v1.1.0 // indirect
 	github.com/xdg-go/pbkdf2 v1.0.0 // indirect
 	github.com/xdg-go/scram v1.1.2 // indirect

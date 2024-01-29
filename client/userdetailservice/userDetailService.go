@@ -13,6 +13,8 @@ import (
 )
 
 type (
+	UserDetailCountReq       = rpcTemplate.UserDetailCountReq
+	UserDetailCountResp      = rpcTemplate.UserDetailCountResp
 	UserDetailDeleteReq      = rpcTemplate.UserDetailDeleteReq
 	UserDetailDeleteResp     = rpcTemplate.UserDetailDeleteResp
 	UserDetailInsertReq      = rpcTemplate.UserDetailInsertReq
@@ -27,6 +29,7 @@ type (
 
 	UserDetailService interface {
 		UserDetailList(ctx context.Context, in *UserDetailListRequest, opts ...grpc.CallOption) (*UserDetailListResponse, error)
+		UserDetailCount(ctx context.Context, in *UserDetailCountReq, opts ...grpc.CallOption) (*UserDetailCountResp, error)
 		UserDetailUpdate(ctx context.Context, in *UserDetailUpdateRequest, opts ...grpc.CallOption) (*UserDetailUpdateResponse, error)
 		UserDetailInsert(ctx context.Context, in *UserDetailInsertReq, opts ...grpc.CallOption) (*UserDetailInsertResp, error)
 		UserDetailDelete(ctx context.Context, in *UserDetailDeleteReq, opts ...grpc.CallOption) (*UserDetailDeleteResp, error)
@@ -46,6 +49,11 @@ func NewUserDetailService(cli zrpc.Client) UserDetailService {
 func (m *defaultUserDetailService) UserDetailList(ctx context.Context, in *UserDetailListRequest, opts ...grpc.CallOption) (*UserDetailListResponse, error) {
 	client := rpcTemplate.NewUserDetailServiceClient(m.cli.Conn())
 	return client.UserDetailList(ctx, in, opts...)
+}
+
+func (m *defaultUserDetailService) UserDetailCount(ctx context.Context, in *UserDetailCountReq, opts ...grpc.CallOption) (*UserDetailCountResp, error) {
+	client := rpcTemplate.NewUserDetailServiceClient(m.cli.Conn())
+	return client.UserDetailCount(ctx, in, opts...)
 }
 
 func (m *defaultUserDetailService) UserDetailUpdate(ctx context.Context, in *UserDetailUpdateRequest, opts ...grpc.CallOption) (*UserDetailUpdateResponse, error) {

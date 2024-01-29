@@ -19,7 +19,21 @@ func registerConsumerService(svcCtx *svc.ServiceContext) *Consumer {
 	}
 }
 
-func ConsumeDetailListCount(svcCtx *svc.ServiceContext, wg *sync.WaitGroup) {
+func RegisterConsumer(svcCtx *svc.ServiceContext, wg *sync.WaitGroup) {
+	registerConsumer(svcCtx, wg)
+}
+
+func registerConsumer(svcCtx *svc.ServiceContext, wg *sync.WaitGroup) {
+	config.ConsumerPool.RegisterConsumeReceive(consumeDetailListCount(svcCtx, wg))
+
+	if err := config.ConsumerPool.RunConsume(); err != nil {
+		logx.Errorf("error:%s", err)
+	}
+}
+
+func consumeDetailListCount(svcCtx *svc.ServiceContext, wg *sync.WaitGroup) *rabbitmqx.ConsumeReceive {
+	wg.Add(1)
+
 	defer wg.Done()
 
 	_ = registerConsumerService(svcCtx)
@@ -38,15 +52,10 @@ func ConsumeDetailListCount(svcCtx *svc.ServiceContext, wg *sync.WaitGroup) {
 			return true
 		},
 		EventFail: func(code int, err error, bytes []byte) {
-
+			logx.Errorf("rabbitmq receive code: %d, err: %s, body: %s", code, err, bytes)
 		},
 	}
 
-	config.ConsumerPool.RegisterConsumeReceive(receive)
-	if err := config.ConsumerPool.RunConsume(); err != nil {
-
-	}
-
-	return
+	return receive
 
 }
