@@ -66,9 +66,9 @@ var (
 	DBClient     *gorm.DB
 	MongoClient  *mongo.Client
 	RedisClient  *redis.Client
-	EtcdClient   *clientv3.Client
-	ProducerPool *rabbitmqx.RabbitPool
-	ConsumerPool *rabbitmqx.RabbitPool
+	etcdClient   *clientv3.Client
+	producerPool *rabbitmqx.RabbitPool
+	consumerPool *rabbitmqx.RabbitPool
 )
 
 func Init() (config *Config) {
@@ -122,7 +122,7 @@ func Init() (config *Config) {
 
 func registerEtcd(ctx context.Context, config *Config) {
 	var err error
-	EtcdClient, err = clientv3.New(clientv3.Config{
+	etcdClient, err = clientv3.New(clientv3.Config{
 		Endpoints:   config.Etcd.Hosts,
 		DialTimeout: 5 * time.Second,
 	})
@@ -159,7 +159,7 @@ func RegisterMongoCli(config Config) *mongo.Client {
 }
 
 func getMongo(config Config) (mongoX *MongoX) {
-	dbResp, err := EtcdClient.Get(context.Background(), config.MongoX)
+	dbResp, err := etcdClient.Get(context.Background(), config.MongoX)
 	if err != nil {
 		panic(err)
 	}
@@ -173,7 +173,7 @@ func getMongo(config Config) (mongoX *MongoX) {
 }
 
 func getDB(config Config) (dbx *DBX) {
-	dbResp, err := EtcdClient.Get(context.Background(), config.DBX)
+	dbResp, err := etcdClient.Get(context.Background(), config.DBX)
 	if err != nil {
 		panic(err)
 	}
@@ -187,7 +187,7 @@ func getDB(config Config) (dbx *DBX) {
 }
 
 func getRedis(config Config) (redisX *RedisX) {
-	redisResp, err := EtcdClient.Get(context.Background(), config.RedisX)
+	redisResp, err := etcdClient.Get(context.Background(), config.RedisX)
 	if err != nil {
 		panic(err)
 	}
@@ -201,7 +201,7 @@ func getRedis(config Config) (redisX *RedisX) {
 }
 
 func getRabbitMq(config Config) (rabbitMqX *RabbitMqX) {
-	rabbitResp, err := EtcdClient.Get(context.Background(), config.RabbitMqX)
+	rabbitResp, err := etcdClient.Get(context.Background(), config.RabbitMqX)
 	if err != nil {
 		panic(err)
 	}
@@ -215,23 +215,23 @@ func getRabbitMq(config Config) (rabbitMqX *RabbitMqX) {
 }
 
 func initProducer(rabbitMqX *RabbitMqX) *rabbitmqx.RabbitPool {
-	ProducerPool = rabbitmqx.NewProductPool()
-	if err := ProducerPool.ConnectVirtualHost(rabbitMqX.Host, rabbitMqX.Port, rabbitMqX.User, rabbitMqX.PassWord, rabbitMqX.VirtualHost); err != nil {
+	producerPool = rabbitmqx.NewProductPool()
+	if err := producerPool.ConnectVirtualHost(rabbitMqX.Host, rabbitMqX.Port, rabbitMqX.User, rabbitMqX.PassWord, rabbitMqX.VirtualHost); err != nil {
 		panic(err)
 	}
 	logx.Info("rabbitMQ producer pool init successfully")
 
-	return ProducerPool
+	return producerPool
 }
 
 func initConsumer(rabbitMqX *RabbitMqX) *rabbitmqx.RabbitPool {
-	ConsumerPool = rabbitmqx.NewConsumePool()
-	if err := ConsumerPool.ConnectVirtualHost(rabbitMqX.Host, rabbitMqX.Port, rabbitMqX.User, rabbitMqX.PassWord, rabbitMqX.VirtualHost); err != nil {
+	consumerPool = rabbitmqx.NewConsumePool()
+	if err := consumerPool.ConnectVirtualHost(rabbitMqX.Host, rabbitMqX.Port, rabbitMqX.User, rabbitMqX.PassWord, rabbitMqX.VirtualHost); err != nil {
 		panic(err)
 	}
 	logx.Info("rabbitMQ consumer pool init successfully")
 
-	return ConsumerPool
+	return consumerPool
 }
 
 func initRedis(redisX *RedisX) *redis.Client {

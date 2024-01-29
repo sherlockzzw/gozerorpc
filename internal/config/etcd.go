@@ -17,7 +17,7 @@ func WatchEtcd(config Config) {
 
 func watchMongo(config Config, wg *sync.WaitGroup) {
 	defer wg.Done()
-	watchMongoChan := EtcdClient.Watch(context.Background(), config.MongoX)
+	watchMongoChan := etcdClient.Watch(context.Background(), config.MongoX)
 
 	wg.Add(1)
 	go func() {
@@ -42,7 +42,7 @@ func watchMongo(config Config, wg *sync.WaitGroup) {
 
 func watchDB(config Config, wg *sync.WaitGroup) {
 	defer wg.Done()
-	watchDBChan := EtcdClient.Watch(context.Background(), config.DBX)
+	watchDBChan := etcdClient.Watch(context.Background(), config.DBX)
 
 	wg.Add(1)
 	go func() {
@@ -67,7 +67,7 @@ func watchDB(config Config, wg *sync.WaitGroup) {
 
 func watchRedis(config Config, wg *sync.WaitGroup) {
 	defer wg.Done()
-	watchDBChan := EtcdClient.Watch(context.Background(), config.RedisX)
+	watchDBChan := etcdClient.Watch(context.Background(), config.RedisX)
 
 	wg.Add(1)
 	go func() {
@@ -92,7 +92,7 @@ func watchRedis(config Config, wg *sync.WaitGroup) {
 
 func watchRabbitMq(config Config, wg *sync.WaitGroup) {
 	defer wg.Done()
-	watchRabbitMqChan := EtcdClient.Watch(context.Background(), config.RabbitMqX)
+	watchRabbitMqChan := etcdClient.Watch(context.Background(), config.RabbitMqX)
 
 	wg.Add(1)
 	go func() {
