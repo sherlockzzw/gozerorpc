@@ -32,6 +32,8 @@ func registerConsumer(svcCtx *svc.ServiceContext, wg *sync.WaitGroup) {
 }
 
 func consumeDetailListCount(svcCtx *svc.ServiceContext, wg *sync.WaitGroup) *rabbitmqx.ConsumeReceive {
+	wg.Add(1)
+
 	defer wg.Done()
 
 	_ = registerConsumerService(svcCtx)

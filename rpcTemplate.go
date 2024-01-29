@@ -27,7 +27,6 @@ func main() {
 
 			wg := new(sync.WaitGroup)
 			go func() {
-				wg.Add(1)
 				consumer.RegisterConsumer(ctx, wg)
 			}()
 
