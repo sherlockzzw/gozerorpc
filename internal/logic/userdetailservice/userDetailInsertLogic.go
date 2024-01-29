@@ -1,6 +1,7 @@
 package userdetailservicelogic
 
 import (
+	"codeup.aliyun.com/64df1ec7dba61e96ebf612bf/jiandaoshou/mongox"
 	"codeup.aliyun.com/64df1ec7dba61e96ebf612bf/jiandaoshou/mysqlx"
 	"context"
 	"rpc-template/internal/dao"
@@ -33,6 +34,13 @@ func (l *UserDetailInsertLogic) UserDetailInsert(in *rpcTemplate.UserDetailInser
 		Name:      in.GetName(),
 		CommonDoc: mysqlx.NewCommonDoc(),
 	}
+
+	data := &entity.DetailMongo{
+		CommonDoc: mongox.NewCommonDoc(),
+		Name:      in.GetName(),
+	}
+
+	l.DetailDao.Mongo.Conn().InsertOne(l.ctx, data)
 
 	if insert, err := l.DetailDao.DB.Insert(l.ctx, doc); err != nil {
 		return nil, err
