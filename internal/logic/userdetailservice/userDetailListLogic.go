@@ -27,7 +27,7 @@ func NewUserDetailListLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Us
 		ctx:       ctx,
 		svcCtx:    svcCtx,
 		Logger:    logx.WithContext(ctx),
-		DetailDao: dao.NewDetailDao(),
+		DetailDao: dao.NewDetailDao(svcCtx),
 	}
 }
 
