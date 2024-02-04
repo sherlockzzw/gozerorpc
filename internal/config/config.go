@@ -130,6 +130,9 @@ func registerEtcd(ctx context.Context, config *Config) {
 		panic(err)
 	}
 
+	if _, err = etcdClient.Get(ctx, "ping"); err != nil {
+		panic("failed connect etcd client")
+	}
 	logx.WithContext(ctx).Info("successfully connect etcd client")
 }
 
