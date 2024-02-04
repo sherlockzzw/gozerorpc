@@ -63,9 +63,9 @@ type (
 var (
 	configOnce = sync.Once{}
 
-	DBClient     *gorm.DB
-	MongoClient  *mongo.Client
-	RedisClient  *redis.Client
+	dBClient     *gorm.DB
+	mongoClient  *mongo.Client
+	redisClient  *redis.Client
 	etcdClient   *clientv3.Client
 	producerPool *rabbitmqx.RabbitPool
 	consumerPool *rabbitmqx.RabbitPool
@@ -238,7 +238,7 @@ func initConsumer(rabbitMqX *RabbitMqX) *rabbitmqx.RabbitPool {
 }
 
 func initRedis(redisX *RedisX) *redis.Client {
-	RedisClient = redis.NewClient(&redis.Options{
+	redisClient = redis.NewClient(&redis.Options{
 		Username: redisX.UserName,
 		Addr:     redisX.Addr,
 		Password: redisX.PassWord, // 密码
@@ -246,29 +246,29 @@ func initRedis(redisX *RedisX) *redis.Client {
 	})
 	// 设置连接超时时间
 
-	_, err := RedisClient.Ping(context.Background()).Result()
+	_, err := redisClient.Ping(context.Background()).Result()
 	if err != nil {
 		panic(err)
 	}
 	logx.Infof("successfully connect redis client")
 
-	return RedisClient
+	return redisClient
 }
 
 func initDB(env string, db *DBX) *gorm.DB {
 	var err error
 
-	DBClient, err = gorm.Open(mysql.Open(db.Uri), mysqlx.DefaultOpts())
+	dBClient, err = gorm.Open(mysql.Open(db.Uri), mysqlx.DefaultOpts())
 	if err != nil {
 		panic(err)
 	}
 	logx.Info("successfully connect mysql client")
 
 	if env != service.ProMode {
-		_ = DBClient.Set("gorm:table_options", "COMMENT='用户详情表'").AutoMigrate(&entity.Detail{})
+		_ = dBClient.Set("gorm:table_options", "COMMENT='用户详情表'").AutoMigrate(&entity.Detail{})
 	}
 
-	return DBClient
+	return dBClient
 }
 
 func initMongo(mongoX *MongoX) *mongo.Client {
@@ -280,13 +280,13 @@ func initMongo(mongoX *MongoX) *mongo.Client {
 	opts.SetMinPoolSize(mongoX.MinPoolSize)
 	opts.SetSocketTimeout(mongoX.SocketTimeout * time.Second)
 	opts.SetConnectTimeout(mongoX.ConnectTimeout * time.Second)
-	MongoClient, err = mongo.Connect(context.Background(), opts)
+	mongoClient, err = mongo.Connect(context.Background(), opts)
 
-	err = MongoClient.Ping(context.Background(), readpref.Primary())
+	err = mongoClient.Ping(context.Background(), readpref.Primary())
 	if err != nil {
 		panic(err)
 	}
 	logx.Info("mongo client init successfully")
 
-	return MongoClient
+	return mongoClient
 }
