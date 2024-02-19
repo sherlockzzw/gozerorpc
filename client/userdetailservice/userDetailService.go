@@ -13,6 +13,16 @@ import (
 )
 
 type (
+	AddUserRes               = rpcTemplate.AddUserRes
+	AddUserResp              = rpcTemplate.AddUserResp
+	DelUserReq               = rpcTemplate.DelUserReq
+	DelUserResp              = rpcTemplate.DelUserResp
+	GetUserListReq           = rpcTemplate.GetUserListReq
+	GetUserListResp          = rpcTemplate.GetUserListResp
+	GetUserRes               = rpcTemplate.GetUserRes
+	GetUserResp              = rpcTemplate.GetUserResp
+	UpdUserReq               = rpcTemplate.UpdUserReq
+	UpdUserResp              = rpcTemplate.UpdUserResp
 	UserDetailCountReq       = rpcTemplate.UserDetailCountReq
 	UserDetailCountResp      = rpcTemplate.UserDetailCountResp
 	UserDetailDeleteReq      = rpcTemplate.UserDetailDeleteReq
@@ -26,6 +36,7 @@ type (
 	UserDetailUpdateQuery    = rpcTemplate.UserDetailUpdateQuery
 	UserDetailUpdateRequest  = rpcTemplate.UserDetailUpdateRequest
 	UserDetailUpdateResponse = rpcTemplate.UserDetailUpdateResponse
+	UserInfo                 = rpcTemplate.UserInfo
 
 	UserDetailService interface {
 		UserDetailList(ctx context.Context, in *UserDetailListRequest, opts ...grpc.CallOption) (*UserDetailListResponse, error)

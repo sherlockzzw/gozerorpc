@@ -2,6 +2,7 @@ package main
 
 import (
 	"codeup.aliyun.com/64df1ec7dba61e96ebf612bf/jiandaoshou/rpc-template/internal/rabbitmq/consumer"
+	testuserserviceServer "codeup.aliyun.com/64df1ec7dba61e96ebf612bf/jiandaoshou/rpc-template/internal/server/testuserservice"
 	server "codeup.aliyun.com/64df1ec7dba61e96ebf612bf/jiandaoshou/rpc-template/internal/server/userdetailservice"
 	"fmt"
 	"sync"
@@ -22,7 +23,7 @@ func main() {
 
 	s := zrpc.MustNewServer(c.RpcServerConf, func(grpcServer *grpc.Server) {
 		rpcTemplate.RegisterUserDetailServiceServer(grpcServer, server.NewUserDetailServiceServer(ctx))
-
+		rpcTemplate.RegisterTestUserServiceServer(grpcServer, testuserserviceServer.NewTestUserServiceServer(ctx))
 		if c.Mode == service.DevMode || c.Mode == service.TestMode || c.Mode == service.ProMode {
 
 			wg := new(sync.WaitGroup)

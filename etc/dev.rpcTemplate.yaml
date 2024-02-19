@@ -7,5 +7,5 @@ MongoX: dev.mongo
 Mode: dev
 Etcd:
   Hosts:
-    - 127.0.0.1:2379
+    - 192.168.110.254:2379
   Key: dev.rpcTemplate.rpc

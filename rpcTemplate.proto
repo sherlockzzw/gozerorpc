@@ -47,10 +47,73 @@ message UserDetailCountReq{
 message UserDetailCountResp{
   int64 count = 1;
 }
+message GetUserResp{
+  int64   id = 1;
+  string  mobile = 2;
+  string  uuid = 3;
+  string  email = 4;
+  int64   state = 5;
+}
+message GetUserRes{
+  int64 id = 1;
+}
+message AddUserResp{
+  optional int64 id = 1;
+}
+message AddUserRes{
+  string uuid = 1;
+  string mobile = 2;
+  string email = 3;
+}
+message GetUserListReq{
+  int64 Page = 1;
+  int64 PageSize = 2;
+}
+message GetUserListResp{
+  repeated UserInfo List = 1;
+  int64 Total = 2;
+  int64 Page = 3;
+}
+message UserInfo{
+  int64   id = 1;
+  string  uuid = 2;
+  string  mobile = 3;
+  string  email = 4;
+  int64   state = 5;
+  int64   created_at = 6;
+  int64   updated_at = 7;
+}
+message UpdUserReq{
+  int64   id = 1;
+  string  uuid = 2;
+  string  mobile = 3 ;
+  string  email = 4;
+  int64   state = 5;
+  string  password = 6;
+
+}
+message UpdUserResp{
+  int64 row = 1;
+}
+
+message DelUserReq{
+  int64 id = 1;
+}
+
+message DelUserResp{
+  bool status = 1;
+}
 service UserDetailService {
   rpc UserDetailList(UserDetailListRequest) returns(UserDetailListResponse);
   rpc UserDetailCount(UserDetailCountReq) returns(UserDetailCountResp);
   rpc UserDetailUpdate(UserDetailUpdateRequest) returns(UserDetailUpdateResponse);
   rpc UserDetailInsert(UserDetailInsertReq) returns(UserDetailInsertResp);
   rpc UserDetailDelete(UserDetailDeleteReq) returns(UserDetailDeleteResp);
+}
+service TestUserService{
+  rpc GetUserInfo(GetUserRes) returns(GetUserResp);
+  rpc AddUser(AddUserRes) returns(AddUserResp);
+  rpc GetUserList(GetUserListReq) returns(GetUserListResp);
+  rpc UpdUser(UpdUserReq) returns (UpdUserResp);
+  rpc DelUser(DelUserReq)returns(DelUserResp);
 }

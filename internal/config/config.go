@@ -177,6 +177,7 @@ func getMongo(config Config) (mongoX *MongoX) {
 
 func getDB(config Config) (dbx *DBX) {
 	dbResp, err := etcdClient.Get(context.Background(), config.DBX)
+
 	if err != nil {
 		panic(err)
 	}
