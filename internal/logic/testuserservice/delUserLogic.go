@@ -34,7 +34,7 @@ func (l *DelUserLogic) DelUser(in *rpcTemplate.DelUserReq) (*rpcTemplate.DelUser
 	_, err := l.TestUserDao.Delete(l.ctx, in.Id)
 
 	if err != nil {
-		l.Errorf("删除音乐失败,err:%+v", err)
+		l.Errorf("删除失败,err:%+v", err)
 		return &rpcTemplate.DelUserResp{Status: false}, err
 	}
 	return &rpcTemplate.DelUserResp{Status: true}, nil
